@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Check dist/ is up to date
+        run: |
+          npm run build
+          git diff --exit-code -- dist || { echo "::error::dist/ is out of date: run npm run build and commit dist/"; exit 1; }
+
+  # Runs the action itself against the live API (one call). Skipped when the secret is not set, e.g. on forks.
+  live:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.APISH_API_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+      - id: snap
+        if: env.HAS_KEY == 'true'
+        uses: ./
+        with:
+          api-key: ${{ secrets.APISH_API_KEY }}
+          route: /tiktok/v1/profile
+          params: "username: nasa"
+          path: out/nasa.json
+      - if: env.HAS_KEY == 'true'
+        run: |
+          test "${{ steps.snap.outputs.changed }}" = "true"
+          jq -e '.username == "nasa"' out/nasa.json
