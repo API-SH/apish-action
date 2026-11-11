@@ -183,6 +183,8 @@ npm test          # unit tests, a git commit/push test and a run of the bundled 
 npm run build     # bundles src/ into dist/ (commit dist/ with your change)
 ```
 
+Run `npm test` and `npm run build` before a pull request; `dist/` must match `src/`.
+
 ## License
 
 MIT
