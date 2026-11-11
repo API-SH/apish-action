@@ -1,5 +1,5 @@
 name: api.sh data snapshot
-description: Save public web data from around 1,000 websites (search engines, social media, e-commerce, real estate, jobs, travel, news, sports) to a JSON, CSV or NDJSON file on a schedule, and commit it when it changes.
+description: Save public web data from around 1,000 websites to a JSON, CSV or NDJSON file on a schedule; commit it when it changes.
 author: API.SH
 
 branding:
