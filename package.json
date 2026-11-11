@@ -1,6 +1,6 @@
 {
   "name": "apish-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "GitHub Action: save api.sh data to a JSON, CSV or NDJSON file on a schedule and commit it when it changes.",
   "license": "MIT",

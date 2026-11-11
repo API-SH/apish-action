@@ -1,5 +1,5 @@
 name: api.sh data snapshot
-description: Save public web data from around 1,000 websites to a JSON, CSV or NDJSON file on a schedule; commit it when it changes.
+description: 'Save public web data from around 1,000 websites to a JSON, CSV or NDJSON file on a schedule; commit it when it changes.'
 author: API.SH
 
 branding:
@@ -8,77 +8,77 @@ branding:
 
 inputs:
   api-key:
-    description: Your api.sh API key. Keep it in a repository secret, e.g. secrets.APISH_API_KEY.
+    description: 'Your api.sh API key. Keep it in a repository secret, e.g. secrets.APISH_API_KEY.'
     required: true
   route:
-    description: The endpoint route, e.g. /tiktok/v1/profile. Find routes at https://api.sh/docs
+    description: 'The endpoint route, e.g. /tiktok/v1/profile. Find routes at https://api.sh/docs'
     required: true
   params:
-    description: The endpoint's parameters as a YAML or JSON mapping, e.g. "username: nasa".
+    description: 'The endpoint''s parameters as a YAML or JSON mapping, e.g. "username: nasa".'
     required: false
     default: ""
   output:
-    description: json, csv or ndjson. CSV and NDJSON hold the response's records (its main list).
+    description: 'json, csv or ndjson. CSV and NDJSON hold the response''s records (its main list).'
     required: false
     default: json
   path:
-    description: The file to write. Default data/<platform>-<endpoint>.<output>.
+    description: 'The file to write. Default data/<platform>-<endpoint>.<output>.'
     required: false
     default: ""
   raw:
-    description: Include the bulky raw source blocks (true/false). Off by default, which keeps files small and diffs readable.
+    description: 'Include the bulky raw source blocks (true/false). Off by default, which keeps files small and diffs readable.'
     required: false
     default: "false"
   fields:
-    description: Only these fields, comma-separated, e.g. results.title,results.url
+    description: 'Only these fields, comma-separated, e.g. results.title,results.url'
     required: false
     default: ""
   records:
-    description: With csv/ndjson, the list that becomes the rows ("." for the whole object as one row).
+    description: 'With csv/ndjson, the list that becomes the rows ("." for the whole object as one row).'
     required: false
     default: ""
   fresh:
-    description: Skip the 24-hour cache and fetch live (true/false).
+    description: 'Skip the 24-hour cache and fetch live (true/false).'
     required: false
     default: "false"
   strip-meta:
-    description: Leave call metadata (fetched_at, cached, credits_used, request_id, success) out of JSON files, so the file only changes when the data does.
+    description: 'Leave call metadata (fetched_at, cached, credits_used, request_id, success) out of JSON files, so the file only changes when the data does.'
     required: false
     default: "true"
   commit:
-    description: Commit and push the file when it changed (true/false). The job needs "permissions: contents: write".
+    description: 'Commit and push the file when it changed (true/false). The job needs "permissions: contents: write".'
     required: false
     default: "false"
   commit-message:
-    description: Commit message. {route} and {path} are replaced.
+    description: 'Commit message. {route} and {path} are replaced.'
     required: false
     default: "Update {path} from api.sh {route}"
   author-name:
-    description: Commit author name.
+    description: 'Commit author name.'
     required: false
     default: github-actions[bot]
   author-email:
-    description: Commit author email.
+    description: 'Commit author email.'
     required: false
     default: 41898282+github-actions[bot]@users.noreply.github.com
   base-url:
-    description: API base URL.
+    description: 'API base URL.'
     required: false
     default: https://api.api.sh
 
 outputs:
   path:
-    description: The file written.
+    description: 'The file written.'
   changed:
     description: "\"true\" when the file's content changed (or the file is new), else \"false\"."
   committed:
     description: "\"true\" when a commit was pushed."
   credits:
-    description: Credits this call used (from the x-credits-used response header).
+    description: 'Credits this call used (from the x-credits-used response header).'
   credits-remaining:
-    description: Credits left on the account after the call, when the API reports it.
+    description: 'Credits left on the account after the call, when the API reports it.'
   request-id:
-    description: The call's request id (look the response up again for free for 30 days).
+    description: 'The call''s request id (look the response up again for free for 30 days).'
 
 runs:
   using: node24
